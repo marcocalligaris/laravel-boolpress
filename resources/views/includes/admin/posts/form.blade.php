@@ -51,14 +51,18 @@
                 <textarea type="text" name='content' rows="10" class="form-control" id="content" required>{{ old('content', $post->content) }}</textarea>
               </div>
         </div>
-        <div class="col-4">
+        <div class="col-5">
             <div class="form-group d-flex flex-column">
                 <label for="image">Immagine</label>
                 <input type="file" name="image" id="image">
               </div>
         </div>
-        <div class="col-1">
-            <img class="img-fluid" src="{{ $post->image ? asset('storage/'.$post->image) : asset('storage/posts_uploads/placeholder.jpg')}}" alt="{{ $post->image ? $post->slug : 'placeholder image' }}" id="preview">
+        <div class="col-2">
+            <img 
+            class="img-fluid" 
+            src="{{ $post->image ? asset('storage/'.$post->image) : asset('storage/posts_uploads/placeholder.jpg')}}" 
+            alt="{{ $post->image ? $post->slug : 'placeholder image' }}" 
+            id="preview">
         </div>
     </div>
     <hr>

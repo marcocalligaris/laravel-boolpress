@@ -123,9 +123,12 @@ class PostController extends Controller
         $request->validate([
             'category_id' => 'nullable|exists:categories,id',
             'tags' => 'nullable|exists:tags,id',
+            'image' => 'nullable|image|mimes:jpeg,jpg,png,svg',
         ], [
             'category_id.exists' => 'Nessuna categoria',
             'tags.exists' => 'Tag non valido',
+            'image.image' => 'Tipo di file errato.',
+            'image.mimes' => 'Sono ammessi i formati .jpeg, .jpg, .svg o .png'
         ]);
 
         $data = $request->all();
@@ -137,7 +140,13 @@ class PostController extends Controller
             $post->tags()->sync($data['tags']);
         } else {
             $post->tags()->detach();
-        }
+        };
+
+        if(array_key_exists('image', $data)) {
+            if($post->image) Storage::delete($post->image);
+            $img_path = Storage::put('posts_uploads', $data['image']);
+            $post->image = $img_path;
+        };
 
         $post->update($data);
 
@@ -154,8 +163,12 @@ class PostController extends Controller
      */
     public function destroy(Post $post)
     {
+        if($post->image) Storage::delete($post->image);
+        
         if(count($post->tags)) $post->tags->detach();
+
         $post->delete();
+
         return redirect()->route('admin.posts.index')
             ->with('message', 'Post eliminato con successo')
             ->with('type', 'danger');
