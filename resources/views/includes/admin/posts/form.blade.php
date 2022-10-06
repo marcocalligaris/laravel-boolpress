@@ -58,7 +58,7 @@
               </div>
         </div>
         <div class="col-1">
-            <img class="img-fluid" src="{{ $post->image ?? "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTw_HeSzHfBorKS4muw4IIeVvvRgnhyO8Gn8w&usqp=CAU" }}" alt="post image preview" id="preview">
+            <img class="img-fluid" src="{{ $post->image ? asset('storage/'.$post->image) : asset('storage/posts_uploads/placeholder.jpg')}}" alt="{{ $post->image ? $post->slug : 'placeholder image' }}" id="preview">
         </div>
     </div>
     <hr>
