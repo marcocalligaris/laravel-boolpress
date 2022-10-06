@@ -7,6 +7,8 @@
     <div class="clearfix">
         @if($post->image)
             <img class="float-left img-fluid mr-2 mb-2" width="200" src="{{ asset('storage/'.$post->image) }}" alt="{{ $post->slug }}">
+        @else
+            <img class="float-left img-fluid mr-2 mb-2" width="200" src="{{ asset('storage/posts_uploads/placeholder.jpg') }}" alt="placeholder image">
         @endif
             <p>{{ $post->content }}</p>
     </div>
