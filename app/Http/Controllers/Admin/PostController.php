@@ -9,6 +9,7 @@ use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use Illuminate\Support\Str;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Storage;
 
 class PostController extends Controller
 {
@@ -46,13 +47,16 @@ class PostController extends Controller
      */
     public function store(Request $request)
     {
+
         $request->validate([
-            'image' => 'url|nullable',
+            'image' => 'nullable|image|mimes:jpeg,jpg,png,svg',
             'category_id' => 'nullable|exists:categories,id',
             'tags' => 'nullable|exists:tags,id',
         ], [
             'category_id.exists' => 'Nessuna categoria',
             'tags.exists' => 'Tag non valido',
+            'image.image' => 'Tipo di file errato.',
+            'image.mimes' => 'Sono ammessi i formati .jpeg, .jpg, .svg o .png'
         ]);
 
         $data = $request->all();
@@ -64,6 +68,12 @@ class PostController extends Controller
         $post->slug = Str::slug($post->title, '-');
 
         $post->user_id = Auth::id();
+
+        if(array_key_exists('image', $data)) {
+            $img_path = Storage::put('posts_uploads', $data['image']);
+            $post->image = $img_path;
+        };
+
         $post->save();
 
         // Operazione da fare DOPO aver salvato
