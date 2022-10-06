@@ -1,8 +1,8 @@
 @if($post->exists)
-<form action="{{ route('admin.posts.update', $post) }}" method="POST">
+<form action="{{ route('admin.posts.update', $post) }}" enctype="multipart/form-data" method="POST">
     @method('PUT')
 @else
-<form action="{{ route('admin.posts.store') }}" method="POST">
+<form action="{{ route('admin.posts.store') }}" enctype="multipart/form-data" method="POST">
 
 @endif
     @csrf
@@ -51,13 +51,13 @@
                 <textarea type="text" name='content' rows="10" class="form-control" id="content" required>{{ old('content', $post->content) }}</textarea>
               </div>
         </div>
-        <div class="col-10">
-            <div class="form-group">
+        <div class="col-4">
+            <div class="form-group d-flex flex-column">
                 <label for="image">Immagine</label>
-                <input type="url" class="form-control" id="image" value="{{ old('image', $post->image) }}">
+                <input type="file" name="image" id="image">
               </div>
         </div>
-        <div class="col-2">
+        <div class="col-1">
             <img class="img-fluid" src="{{ $post->image ?? "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTw_HeSzHfBorKS4muw4IIeVvvRgnhyO8Gn8w&usqp=CAU" }}" alt="post image preview" id="preview">
         </div>
     </div>
