@@ -53950,7 +53950,7 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _components_pages_AboutPage_vue__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ./components/pages/AboutPage.vue */ "./resources/js/components/pages/AboutPage.vue");
 /* harmony import */ var _components_pages_ContactsPage_vue__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ./components/pages/ContactsPage.vue */ "./resources/js/components/pages/ContactsPage.vue");
 /* harmony import */ var _components_pages_NotFoundPage_vue__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ./components/pages/NotFoundPage.vue */ "./resources/js/components/pages/NotFoundPage.vue");
-/* harmony import */ var _components_pages_PostPage_vue__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! ./components/pages/PostPage.vue */ "./resources/js/components/pages/PostPage.vue");
+/* harmony import */ var _components_pages_PostPage_vue__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! ./components/pages/PostPage.vue */ "./resources/js/components/pages/PostPage.vue");
 //* Importazione di vue + vue router
 
  //* Importazione componenti delle pagine
@@ -53980,7 +53980,7 @@ var routes = new vue_router__WEBPACK_IMPORTED_MODULE_1__["default"]({
     name: 'contacts'
   }, {
     path: '/posts/:id',
-    component: _components_pages_PostPage_vue__WEBPACK_IMPORTED_MODULE_7__["default"],
+    component: _components_pages_PostPage_vue__WEBPACK_IMPORTED_MODULE_6__["default"],
     name: 'post-details'
   }, // Questa va importata per  ultima altrimenti blocca tutto ciò che viene dopo
   {
@@ -54000,7 +54000,7 @@ var routes = new vue_router__WEBPACK_IMPORTED_MODULE_1__["default"]({
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
-module.exports = __webpack_require__(/*! C:\Laravel\laravel-api\resources\js\front.js */"./resources/js/front.js");
+module.exports = __webpack_require__(/*! C:\Laravel\laravel-boolpress\resources\js\front.js */"./resources/js/front.js");
 
 
 /***/ })
