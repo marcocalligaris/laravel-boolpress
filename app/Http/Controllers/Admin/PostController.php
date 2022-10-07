@@ -12,6 +12,7 @@ use Illuminate\Support\Str;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Facades\Mail;
+use App\User;
 
 class PostController extends Controller
 {
@@ -81,12 +82,16 @@ class PostController extends Controller
         // Operazione da fare DOPO aver salvato
         if(array_key_exists('tags', $data)) {
             $post->tags()->attach($data['tags']);
-        }
+        };
 
         // Invio email
         $mail = new NewPostMail($post);
-        $recipient = Auth::user()->email;
-        Mail::to($recipient)->send($mail);
+        // $recipient = Auth::user()->email;
+        $mailing_list = User::where('id', '<>', $post->user_id)->pluck('email')->toArray();
+
+        foreach($mailing_list as $recipient) {
+            Mail::to($mailing_list)->send($mail);
+        };
 
         return redirect()->route('admin.posts.store', $post)
             ->with('message', 'Post creato con successo')
