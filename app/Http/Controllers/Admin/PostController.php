@@ -6,10 +6,12 @@ use App\Models\Tag;
 use App\Models\Category;
 use App\Models\Post;
 use App\Http\Controllers\Controller;
+use App\Mail\NewPostMail;
 use Illuminate\Http\Request;
 use Illuminate\Support\Str;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Storage;
+use Illuminate\Support\Facades\Mail;
 
 class PostController extends Controller
 {
@@ -80,6 +82,11 @@ class PostController extends Controller
         if(array_key_exists('tags', $data)) {
             $post->tags()->attach($data['tags']);
         }
+
+        // Invio email
+        $mail = new NewPostMail($post);
+        $recipient = Auth::user()->email;
+        Mail::to($recipient)->send($mail);
 
         return redirect()->route('admin.posts.store', $post)
             ->with('message', 'Post creato con successo')
@@ -165,8 +172,6 @@ class PostController extends Controller
     {
         if($post->image) Storage::delete($post->image);
         
-        if(count($post->tags)) $post->tags->detach();
-
         $post->delete();
 
         return redirect()->route('admin.posts.index')
